@@ -1,1 +1,13 @@
-.sidebar {}
+.sidebar {
+    grid-area: sidebar;
+    background-color: var(--white);
+    height: calc(100vh - 50px);
+    // border: 1px solid var(--border-color);
+    overflow-y: auto;
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        max-height: calc(100vh - 200px - 50px);
+    }
+}

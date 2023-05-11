@@ -1,5 +1,8 @@
+import { ListItem } from "components/ListItem";
 import styles from "./Sidebar.module.scss";
 
-export const Sidebar = () => (
-    <div className={styles.sidebar}>Sidebar Component</div>
+export const Sidebar = ({ active, makeActiveHandler }) => (
+    <div className={styles.sidebar}>
+        <ListItem active={active} makeActiveHandler={makeActiveHandler} />
+    </div>
 );

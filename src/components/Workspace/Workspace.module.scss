@@ -1,1 +1,39 @@
-.workspace {}
+.workspace {
+    grid-area: main;
+    background-color: var(--white);
+    height: calc(100vh - 50px);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px 30px;
+    border: 1px solid var(--border-color);
+
+    & .date {
+        text-align: center;
+        color: var(--grey-text-color);
+    }
+    & textarea,
+    input {
+        white-space: pre-wrap;
+        background: transparent;
+        border: none;
+        color: var(--text-color);
+        resize: none;
+        font-size: 18px;
+    }
+    & textarea:focus,
+    input:focus {
+        outline: none;
+    }
+    & textarea::placeholder,
+    input::placeholder {
+        color: var(--text-color);
+    }
+}
+
+@media (max-width: 600px) {
+    .workspace {
+        max-height: 200px;
+        overflow-y: hidden;
+    }
+}

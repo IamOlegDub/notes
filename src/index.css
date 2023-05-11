@@ -1,4 +1,5 @@
 @import-normalize;
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap");
 
 * {
     box-sizing: border-box;
@@ -6,25 +7,19 @@
 }
 
 :root {
-    --main-color: #786fa6;
-    --main-color-hover: #574b90;
+    --text-color: #1f1f1d;
+    --grey-text-color: #b5b6b7;
+    --main-color: #d6d6d6;
+    --white: #f9f9f9;
+    --active-color: #e1e1df;
+    --hover-color: #efefeb;
+    --border-color: rgb(234, 222, 222);
 
-    --white: #f6f5f1;
-
-    --gray-50: #ede9dc;
-    --gray-100: #85699a;
-    --gray-200: #a891c0;
-    --gray-300: #695684;
-    --gray-400: #311e47;
-    --gray-500: #251532;
-
-    --error-color: #b33535;
-
-    --shadow: 0px 16px 30px -10px rgba(175, 187, 70, 0.199);
+    --shadow: 0px 16px 30px -10px rgba(31, 31, 29, 0.5);
 }
 
 body {
-    font-family: "Concert One", cursive;
+    font-family: "Source Sans Pro", sans-serif;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -36,6 +31,40 @@ body[data-theme="dark"] {
 }
 
 a,
-input {
-    font-family: "Concert One", cursive;
+input,
+textarea {
+    font-family: "Source Sans Pro", sans-serif;
+}
+ul {
+    padding: 0;
+}
+
+/* total width */
+::-webkit-scrollbar {
+    background-color: var(--white);
+    width: 16px;
+}
+
+/* background of the scrollbar except button or resizer */
+::-webkit-scrollbar-track {
+    background-color: var(--white);
+}
+::-webkit-scrollbar-track:hover {
+    background-color: #f4f4f4;
+}
+
+/* scrollbar itself */
+::-webkit-scrollbar-thumb {
+    background-color: #babac0;
+    border-radius: 16px;
+    border: 5px solid #fff;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #a0a0a5;
+    border: 4px solid #f4f4f4;
+}
+
+/* set button(top and bottom of the scrollbar) */
+::-webkit-scrollbar-button {
+    display: none;
 }
