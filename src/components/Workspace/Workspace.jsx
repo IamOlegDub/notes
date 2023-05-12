@@ -1,49 +1,59 @@
-import { useContext, useState } from "react";
+import { activeNoteContext } from "components/context/ActiveNoteContext";
 import styles from "./Workspace.module.scss";
-import Context from "context/Context";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import { noteContext } from "components/context/NotesContext";
+import { useContext } from "react";
 
-export const Workspace = ({
-    updateNoteHandler,
-    titleHandler,
-    textHandler,
-    activeNote,
-}) => {
+export const Workspace = () => {
+    const { activeNote } = useContext(activeNoteContext);
+    const { notes, setNotes } = useContext(noteContext);
+
+    const getActiveNote = () => notes.find((note) => note.id === activeNote);
+    const currentActiveNote = getActiveNote();
+
     const editFieldHandler = (field, value) => {
         updateNoteHandler({
-            ...activeNote,
+            ...currentActiveNote,
             [field]: value,
             created: Date.now(),
         });
     };
-    if (!activeNote) return;
-    const noteCreated = new Date(activeNote.created).toLocaleString("uk-UK");
-    var inputStyle = {
-        width: "400px",
-        height: "50vh",
-        marginLeft: "auto",
-        marginRight: "auto",
-        padding: "10px",
+    if (!currentActiveNote) return;
+    const noteCreated = new Date(currentActiveNote.created).toLocaleString(
+        "uk-UK"
+    );
+
+    const updateNoteHandler = (updatedNote) => {
+        const updatedNotesArr = notes.map((note) => {
+            if (note.id === updatedNote.id) {
+                return updatedNote;
+            }
+
+            return note;
+        });
+
+        setNotes(updatedNotesArr);
     };
+
     return (
         <div className={styles.workspace}>
             <div className={styles.date}>{noteCreated}</div>
             <input
                 type="text"
                 placeholder="Title...."
-                value={activeNote.title}
+                value={currentActiveNote.title}
                 autoFocus
                 onChange={(e) => editFieldHandler("title", e.target.value)}
             />
             <textarea
-                value={activeNote.text}
+                value={currentActiveNote.text}
                 cols="10"
                 rows="5"
                 placeholder="Type...."
                 maxLength="100"
                 onChange={(e) => editFieldHandler("text", e.target.value)}
             />
-            <ReactMarkdown>{activeNote.title}</ReactMarkdown>
+            <ReactMarkdown>{currentActiveNote.title}</ReactMarkdown>
         </div>
     );
 };

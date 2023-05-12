@@ -50,5 +50,22 @@
             fill: #81817d;
             transform: translateY(2px);
         }
+        &.disabled {
+            // background-color: var(--hover-color);
+            cursor: auto;
+            box-shadow: none;
+            & > svg {
+                fill: rgb(212, 206, 206);
+                width: 20px;
+                height: auto;
+            }
+            &:active {
+                box-shadow: none;
+            }
+            &:active > svg {
+                fill: rgb(212, 206, 206);
+                transform: translateY(0px);
+            }
+        }
     }
 }
