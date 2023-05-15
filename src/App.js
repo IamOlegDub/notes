@@ -1,19 +1,17 @@
+import { useContext, useEffect, useState } from "react";
+import { SyncLoader } from "react-spinners";
 import { Sidebar } from "components/Sidebar";
 import { Container } from "./components/Container/Container";
 import { TheHeader } from "./components/TheHeader/TheHeader";
 import { Workspace } from "components/Workspace";
-import { initDb } from "database/db";
-import { useContext, useEffect, useState } from "react";
-import { SyncLoader } from "react-spinners";
-import { useWindowSize } from "hooks/useWindowSize";
 import { activeNoteContext } from "context/ActiveNoteContext";
+import { useWindowSize } from "hooks/useWindowSize";
+import { initDb } from "database/db";
 
 function App() {
     const [isDBReady, setIsDBReady] = useState(false);
     const { activeNote } = useContext(activeNoteContext);
     const [width] = useWindowSize();
-
-    console.log(activeNote);
 
     useEffect(() => {
         (async () => {

@@ -86,7 +86,6 @@ export const updateData = (storeName, key, data) => {
 
 export const deleteData = (storeName, key) => {
     return new Promise((resolve) => {
-        // again open the connection
         let request = indexedDB.open("myDB", version);
 
         request.onsuccess = () => {

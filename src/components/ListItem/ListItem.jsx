@@ -1,10 +1,11 @@
-import { CardItem } from "components/CardItem";
-import styles from "./ListItem.module.scss";
 import { useContext, useEffect } from "react";
+import { CardItem } from "components/CardItem";
 import { activeNoteContext } from "context/ActiveNoteContext";
 import { noteContext } from "context/NotesContext";
 import { queryContext } from "context/QueryContext";
 import { getStoreData } from "database/db";
+
+import styles from "./ListItem.module.scss";
 
 export const ListItem = () => {
     const { activeNote, setActiveNote } = useContext(activeNoteContext);

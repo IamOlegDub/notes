@@ -1,4 +1,3 @@
-// Import createContext() method from React:
 import { createContext, useState } from "react";
 
 export const activeNoteContext = createContext();

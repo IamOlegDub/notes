@@ -1,12 +1,13 @@
-import { activeNoteContext } from "context/ActiveNoteContext";
-import styles from "./Workspace.module.scss";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import { noteContext } from "context/NotesContext";
 import { useContext, useRef } from "react";
-import { updateData } from "database/db";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import cn from "classnames";
+import { activeNoteContext } from "context/ActiveNoteContext";
+import { noteContext } from "context/NotesContext";
 import { editContext } from "context/EditContext";
 import { useOutsideClick } from "hooks/useOutsideClick";
-import cn from "classnames";
+import { updateData } from "database/db";
+
+import styles from "./Workspace.module.scss";
 
 export const Workspace = () => {
     const { activeNote } = useContext(activeNoteContext);

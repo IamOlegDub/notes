@@ -1,6 +1,7 @@
-import cn from "classnames";
-import styles from "./CardItem.module.scss";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import cn from "classnames";
+
+import styles from "./CardItem.module.scss";
 
 export const CardItem = ({ note, active, makeActiveHandler }) => {
     const currentDate = new Date(

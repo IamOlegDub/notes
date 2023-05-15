@@ -1,6 +1,7 @@
 import { useContext } from "react";
-import styles from "./SearchBox.module.scss";
 import { queryContext } from "context/QueryContext";
+
+import styles from "./SearchBox.module.scss";
 
 export const SearchBox = () => {
     const { setQuery } = useContext(queryContext);

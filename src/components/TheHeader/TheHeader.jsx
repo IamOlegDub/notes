@@ -1,18 +1,19 @@
+import { useContext } from "react";
+import { v4 as uuidv4 } from "uuid";
+import cn from "classnames";
+import { SearchBox } from "components/SearchBox";
+import { activeNoteContext } from "context/ActiveNoteContext";
+import { noteContext } from "context/NotesContext";
+import { editContext } from "context/EditContext";
+import { useWindowSize } from "hooks/useWindowSize";
+import { addData, deleteData } from "database/db";
+
 import { ReactComponent as AddIcon } from "assets/addIcon.svg";
 import { ReactComponent as DeleteIcon } from "assets/deleteIcon.svg";
 import { ReactComponent as EditIcon } from "assets/editIcon.svg";
 import { ReactComponent as BackIcon } from "assets/backIcon.svg";
-import { SearchBox } from "components/SearchBox";
-import { v4 as uuidv4 } from "uuid";
 
-import cn from "classnames";
 import styles from "./TheHeader.module.scss";
-import { useContext } from "react";
-import { activeNoteContext } from "context/ActiveNoteContext";
-import { noteContext } from "context/NotesContext";
-import { addData, deleteData } from "database/db";
-import { editContext } from "context/EditContext";
-import { useWindowSize } from "hooks/useWindowSize";
 
 export const TheHeader = () => {
     const { activeNote, setActiveNote } = useContext(activeNoteContext);
