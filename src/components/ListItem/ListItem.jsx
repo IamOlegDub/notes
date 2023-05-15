@@ -1,11 +1,10 @@
 import { CardItem } from "components/CardItem";
 import styles from "./ListItem.module.scss";
-import { useCallback, useContext, useEffect, useState } from "react";
-import { activeNoteContext } from "components/context/ActiveNoteContext";
-import { noteContext } from "components/context/NotesContext";
-import { queryContext } from "components/context/QueryContext";
-import { addData, getStoreData } from "database/db";
-import { v4 as uuidv4 } from "uuid";
+import { useContext, useEffect } from "react";
+import { activeNoteContext } from "context/ActiveNoteContext";
+import { noteContext } from "context/NotesContext";
+import { queryContext } from "context/QueryContext";
+import { getStoreData } from "database/db";
 
 export const ListItem = () => {
     const { activeNote, setActiveNote } = useContext(activeNoteContext);
@@ -22,23 +21,6 @@ export const ListItem = () => {
             setNotes(dbNotes);
         })();
     }, [setNotes]);
-
-    // useEffect(() => {
-    //     (async () => {
-    //         try {
-    //             const res = await addData("test", {
-    //                 id: uuidv4(),
-    //                 title: "New title",
-    //                 text: "Note",
-    //                 created: Date.now(),
-    //                 isLocked: false,
-    //             });
-    //             handleGetUsers();
-    //         } catch (err) {
-    //             console.log(err.message);
-    //         }
-    //     })();
-    // }, [handleGetUsers]);
 
     return (
         <ul className={styles.listItem}>

@@ -7,12 +7,19 @@ export const CardItem = ({ note, active, makeActiveHandler }) => {
         JSON.parse(JSON.stringify(new Date())).slice(0, -14)
     );
     const noteDate = new Date(note.created);
-    const time = noteDate.toLocaleTimeString().slice(0, -3);
-    const noteFullDate = noteDate.toLocaleDateString("uk-UK");
+    const time = noteDate.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+    });
+    const noteFullDate = noteDate.toLocaleDateString("uk-UK", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+    });
     const renderedTime =
-        noteDate > currentDate
+        noteDate > currentDate - 10800000
             ? time
-            : noteFullDate.replace(".", "/").replace(".", "/");
+            : noteFullDate.replace(/\./g, "/");
     return (
         <li
             className={cn(styles.cardItem, {
@@ -20,9 +27,17 @@ export const CardItem = ({ note, active, makeActiveHandler }) => {
             })}
             onClick={() => makeActiveHandler(note.id)}
         >
-            <ReactMarkdown className={styles.title}>{note.title}</ReactMarkdown>
+            <ReactMarkdown
+                className={cn(styles.title, { [styles.markdown]: !note.title })}
+            >
+                {!note.title ? "Title..." : note.title}
+            </ReactMarkdown>
             <div className={styles.created}>{renderedTime}</div>
-            <ReactMarkdown className={styles.text}>{note.text}</ReactMarkdown>
+            <ReactMarkdown
+                className={cn(styles.text, { [styles.markdown]: !note.text })}
+            >
+                {!note.text ? "Note..." : note.text}
+            </ReactMarkdown>
         </li>
     );
 };

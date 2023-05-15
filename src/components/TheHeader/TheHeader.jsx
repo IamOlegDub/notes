@@ -1,21 +1,24 @@
 import { ReactComponent as AddIcon } from "assets/addIcon.svg";
 import { ReactComponent as DeleteIcon } from "assets/deleteIcon.svg";
 import { ReactComponent as EditIcon } from "assets/editIcon.svg";
+import { ReactComponent as BackIcon } from "assets/backIcon.svg";
 import { SearchBox } from "components/SearchBox";
 import { v4 as uuidv4 } from "uuid";
 
 import cn from "classnames";
 import styles from "./TheHeader.module.scss";
 import { useContext } from "react";
-import { activeNoteContext } from "components/context/ActiveNoteContext";
-import { noteContext } from "components/context/NotesContext";
+import { activeNoteContext } from "context/ActiveNoteContext";
+import { noteContext } from "context/NotesContext";
 import { addData, deleteData } from "database/db";
-import { editContext } from "components/context/EditContext";
+import { editContext } from "context/EditContext";
+import { useWindowSize } from "hooks/useWindowSize";
 
 export const TheHeader = () => {
     const { activeNote, setActiveNote } = useContext(activeNoteContext);
     const { isEditable, setIsEditable } = useContext(editContext);
     const { setNotes } = useContext(noteContext);
+    const [width] = useWindowSize();
 
     const deleteNoteHandler = () => {
         const pass = window.confirm(
@@ -36,8 +39,8 @@ export const TheHeader = () => {
     const addNoteHandler = () => {
         const newNote = {
             id: uuidv4(),
-            title: "Title",
-            text: "Note",
+            title: "",
+            text: "",
             created: Date.now(),
             isLocked: false,
         };
@@ -54,10 +57,23 @@ export const TheHeader = () => {
         setIsEditable(true);
     };
 
-    console.log(isEditable);
+    const backHandler = () => {
+        setActiveNote(-1);
+    };
+
     return (
         <header className={styles.header}>
             <div className={styles.headerButtons}>
+                {width <= 600 && activeNote.length > 3 && (
+                    <button
+                        className={styles.button}
+                        onClick={() => {
+                            backHandler();
+                        }}
+                    >
+                        <BackIcon />
+                    </button>
+                )}
                 <button
                     className={styles.button}
                     onClick={() => {

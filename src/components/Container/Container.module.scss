@@ -4,6 +4,7 @@
     grid-template-areas:
         "header header"
         "sidebar main";
+    background-color: var(--white);
 }
 
 @media (max-width: 600px) {

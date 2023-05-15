@@ -1,11 +1,12 @@
-import { activeNoteContext } from "components/context/ActiveNoteContext";
+import { activeNoteContext } from "context/ActiveNoteContext";
 import styles from "./Workspace.module.scss";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import { noteContext } from "components/context/NotesContext";
+import { noteContext } from "context/NotesContext";
 import { useContext, useRef } from "react";
 import { updateData } from "database/db";
-import { editContext } from "components/context/EditContext";
+import { editContext } from "context/EditContext";
 import { useOutsideClick } from "hooks/useOutsideClick";
+import cn from "classnames";
 
 export const Workspace = () => {
     const { activeNote } = useContext(activeNoteContext);
@@ -43,9 +44,18 @@ export const Workspace = () => {
 
     useOutsideClick(editArea, finishEditHandler);
 
+    const options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+    };
+
     if (!currentActiveNote) return;
     const noteCreated = new Date(currentActiveNote.created).toLocaleString(
-        "uk-UK"
+        "en-US",
+        options
     );
     return (
         <div className={styles.workspace}>
@@ -55,19 +65,17 @@ export const Workspace = () => {
                     <>
                         <input
                             type="text"
-                            placeholder="Title...."
+                            placeholder="Title..."
                             value={currentActiveNote.title}
-                            autoFocus
                             onChange={(e) =>
                                 editFieldHandler("title", e.target.value)
                             }
                         />
                         <textarea
                             value={currentActiveNote.text}
-                            cols="10"
                             rows="5"
-                            placeholder="Type...."
-                            maxLength="100"
+                            placeholder="Note...."
+                            autoFocus
                             onChange={(e) =>
                                 editFieldHandler("text", e.target.value)
                             }
@@ -75,8 +83,25 @@ export const Workspace = () => {
                     </>
                 ) : (
                     <>
-                        <ReactMarkdown>{currentActiveNote.title}</ReactMarkdown>
-                        <ReactMarkdown>{currentActiveNote.text}</ReactMarkdown>
+                        <ReactMarkdown
+                            className={cn(styles.markdown, {
+                                [styles.markdownEmpty]:
+                                    !currentActiveNote.title,
+                            })}
+                        >
+                            {!currentActiveNote.title
+                                ? "Title..."
+                                : currentActiveNote.title}
+                        </ReactMarkdown>
+                        <ReactMarkdown
+                            className={cn(styles.markdown, {
+                                [styles.markdownEmpty]: !currentActiveNote.text,
+                            })}
+                        >
+                            {!currentActiveNote.text
+                                ? "Note..."
+                                : currentActiveNote.text}
+                        </ReactMarkdown>
                     </>
                 )}
             </div>
